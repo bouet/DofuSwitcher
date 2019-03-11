@@ -28,13 +28,111 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.lstChkDofus = new System.Windows.Forms.CheckedListBox();
+            this.btnInit = new System.Windows.Forms.Button();
+            this.lblDWL = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lstProcess = new System.Windows.Forms.ListBox();
+            this.SuspendLayout();
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(12, 372);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(224, 66);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "START";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(318, 372);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(224, 66);
+            this.btnStop.TabIndex = 1;
+            this.btnStop.Text = "STOP";
+            this.btnStop.UseVisualStyleBackColor = true;
+            // 
+            // lstChkDofus
+            // 
+            this.lstChkDofus.FormattingEnabled = true;
+            this.lstChkDofus.Location = new System.Drawing.Point(318, 56);
+            this.lstChkDofus.Name = "lstChkDofus";
+            this.lstChkDofus.Size = new System.Drawing.Size(210, 229);
+            this.lstChkDofus.TabIndex = 2;
+            this.lstChkDofus.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
+            // 
+            // btnInit
+            // 
+            this.btnInit.Location = new System.Drawing.Point(169, 291);
+            this.btnInit.Name = "btnInit";
+            this.btnInit.Size = new System.Drawing.Size(210, 52);
+            this.btnInit.TabIndex = 3;
+            this.btnInit.Text = "INITIALIZE";
+            this.btnInit.UseVisualStyleBackColor = true;
+            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
+            // 
+            // lblDWL
+            // 
+            this.lblDWL.AutoSize = true;
+            this.lblDWL.Font = new System.Drawing.Font("Modern No. 20", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDWL.Location = new System.Drawing.Point(325, 29);
+            this.lblDWL.Name = "lblDWL";
+            this.lblDWL.Size = new System.Drawing.Size(194, 24);
+            this.lblDWL.TabIndex = 4;
+            this.lblDWL.Text = "Dofus Windows List :";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Modern No. 20", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(28, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(206, 24);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Windows Process List :";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lstProcess
+            // 
+            this.lstProcess.FormattingEnabled = true;
+            this.lstProcess.Location = new System.Drawing.Point(24, 59);
+            this.lstProcess.Name = "lstProcess";
+            this.lstProcess.Size = new System.Drawing.Size(210, 225);
+            this.lstProcess.TabIndex = 7;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(557, 450);
+            this.Controls.Add(this.lstProcess);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblDWL);
+            this.Controls.Add(this.btnInit);
+            this.Controls.Add(this.lstChkDofus);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnStart);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.CheckedListBox lstChkDofus;
+        private System.Windows.Forms.Button btnInit;
+        private System.Windows.Forms.Label lblDWL;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox lstProcess;
     }
 }
 
