@@ -25,6 +25,10 @@ namespace DofuSwitcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //SET LIST PROPERTIES
+            lstProcess.View = View.Details;
+            lstProcess.FullRowSelect = true;
+            //LOAD LISTS
             loadProcessList();
             loadDofusWindows();
         }
@@ -51,7 +55,7 @@ namespace DofuSwitcher
             }
         }
 
-        private void btnInit_Click(object sender, EventArgs e)
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
             loadProcessList();
             loadDofusWindows();

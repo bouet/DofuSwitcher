@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.lstChkDofus = new System.Windows.Forms.CheckedListBox();
@@ -75,7 +76,7 @@
             this.btnRefresh.TabIndex = 3;
             this.btnRefresh.Text = "REFRESH";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnInit_Click);
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // lblDWL
             // 
@@ -102,6 +103,8 @@
             this.lstProcess.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clnName,
             this.clnId});
+            this.lstProcess.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
             this.lstProcess.Location = new System.Drawing.Point(32, 56);
             this.lstProcess.Name = "lstProcess";
             this.lstProcess.Size = new System.Drawing.Size(202, 229);
