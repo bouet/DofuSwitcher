@@ -26,6 +26,7 @@ namespace DofuSwitcher
         private void Form1_Load(object sender, EventArgs e)
         {
             loadProcessList();
+            loadDofusWindows();
         }
 
         private void loadProcessList()
@@ -35,28 +36,28 @@ namespace DofuSwitcher
             foreach (Process process in processList)
             {
                 ListViewItem item = new ListViewItem(process.ProcessName);
-                item.Tag = process;
+                item.SubItems.Add(Convert.ToString(process.Id));
                 lstProcess.Items.Add(item);
+            }
+        }
+
+        private void loadDofusWindows()
+        {
+            lstChkDofus.Items.Clear();
+            Process[] dofusList = Process.GetProcessesByName("Dofus");
+            foreach (Process process in dofusList)
+            {
+                lstChkDofus.Items.Add(process.MainWindowTitle);
             }
         }
 
         private void btnInit_Click(object sender, EventArgs e)
         {
-            btnInit.Text = "REFRESH";
-
+            loadProcessList();
+            loadDofusWindows();
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void lstChkDofus_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

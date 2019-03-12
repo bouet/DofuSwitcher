@@ -31,10 +31,12 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.lstChkDofus = new System.Windows.Forms.CheckedListBox();
-            this.btnInit = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.lblDWL = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lstProcess = new System.Windows.Forms.ListBox();
+            this.lstProcess = new System.Windows.Forms.ListView();
+            this.clnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnStart
@@ -63,17 +65,17 @@
             this.lstChkDofus.Name = "lstChkDofus";
             this.lstChkDofus.Size = new System.Drawing.Size(210, 229);
             this.lstChkDofus.TabIndex = 2;
-            this.lstChkDofus.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
+            this.lstChkDofus.SelectedIndexChanged += new System.EventHandler(this.lstChkDofus_SelectedIndexChanged);
             // 
-            // btnInit
+            // btnRefresh
             // 
-            this.btnInit.Location = new System.Drawing.Point(169, 291);
-            this.btnInit.Name = "btnInit";
-            this.btnInit.Size = new System.Drawing.Size(210, 52);
-            this.btnInit.TabIndex = 3;
-            this.btnInit.Text = "INITIALIZE";
-            this.btnInit.UseVisualStyleBackColor = true;
-            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
+            this.btnRefresh.Location = new System.Drawing.Point(169, 291);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(210, 52);
+            this.btnRefresh.TabIndex = 3;
+            this.btnRefresh.Text = "REFRESH";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnInit_Click);
             // 
             // lblDWL
             // 
@@ -94,15 +96,25 @@
             this.label1.Size = new System.Drawing.Size(206, 24);
             this.label1.TabIndex = 6;
             this.label1.Text = "Windows Process List :";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lstProcess
             // 
-            this.lstProcess.FormattingEnabled = true;
-            this.lstProcess.Location = new System.Drawing.Point(24, 59);
+            this.lstProcess.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clnName,
+            this.clnId});
+            this.lstProcess.Location = new System.Drawing.Point(32, 56);
             this.lstProcess.Name = "lstProcess";
-            this.lstProcess.Size = new System.Drawing.Size(210, 225);
+            this.lstProcess.Size = new System.Drawing.Size(202, 229);
             this.lstProcess.TabIndex = 7;
+            this.lstProcess.UseCompatibleStateImageBehavior = false;
+            // 
+            // clnName
+            // 
+            this.clnName.Text = "NAME";
+            // 
+            // clnId
+            // 
+            this.clnId.Text = "ID";
             // 
             // Form1
             // 
@@ -112,7 +124,7 @@
             this.Controls.Add(this.lstProcess);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblDWL);
-            this.Controls.Add(this.btnInit);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lstChkDofus);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -129,10 +141,12 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.CheckedListBox lstChkDofus;
-        private System.Windows.Forms.Button btnInit;
+        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label lblDWL;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lstProcess;
+        private System.Windows.Forms.ListView lstProcess;
+        private System.Windows.Forms.ColumnHeader clnName;
+        private System.Windows.Forms.ColumnHeader clnId;
     }
 }
 
