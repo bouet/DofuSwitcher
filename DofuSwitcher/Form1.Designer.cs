@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.lstChkDofus = new System.Windows.Forms.CheckedListBox();
@@ -38,6 +38,7 @@
             this.lstProcess = new System.Windows.Forms.ListView();
             this.clnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lstConsole = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // btnStart
@@ -58,6 +59,7 @@
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "STOP";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // lstChkDofus
             // 
@@ -104,7 +106,7 @@
             this.clnName,
             this.clnId});
             this.lstProcess.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.lstProcess.Location = new System.Drawing.Point(32, 56);
             this.lstProcess.Name = "lstProcess";
             this.lstProcess.Size = new System.Drawing.Size(202, 229);
@@ -119,11 +121,20 @@
             // 
             this.clnId.Text = "ID";
             // 
+            // lstConsole
+            // 
+            this.lstConsole.Location = new System.Drawing.Point(396, 297);
+            this.lstConsole.Name = "lstConsole";
+            this.lstConsole.Size = new System.Drawing.Size(146, 65);
+            this.lstConsole.TabIndex = 8;
+            this.lstConsole.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 450);
+            this.Controls.Add(this.lstConsole);
             this.Controls.Add(this.lstProcess);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblDWL);
@@ -150,6 +161,7 @@
         private System.Windows.Forms.ListView lstProcess;
         private System.Windows.Forms.ColumnHeader clnName;
         private System.Windows.Forms.ColumnHeader clnId;
+        private System.Windows.Forms.ListView lstConsole;
     }
 }
 
