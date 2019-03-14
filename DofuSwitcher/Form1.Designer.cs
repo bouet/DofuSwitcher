@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.lstChkDofus = new System.Windows.Forms.CheckedListBox();
@@ -68,7 +68,6 @@
             this.lstChkDofus.Name = "lstChkDofus";
             this.lstChkDofus.Size = new System.Drawing.Size(210, 229);
             this.lstChkDofus.TabIndex = 2;
-            this.lstChkDofus.SelectedIndexChanged += new System.EventHandler(this.lstChkDofus_SelectedIndexChanged);
             // 
             // btnRefresh
             // 
@@ -106,7 +105,7 @@
             this.clnName,
             this.clnId});
             this.lstProcess.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.lstProcess.Location = new System.Drawing.Point(32, 56);
             this.lstProcess.Name = "lstProcess";
             this.lstProcess.Size = new System.Drawing.Size(202, 229);

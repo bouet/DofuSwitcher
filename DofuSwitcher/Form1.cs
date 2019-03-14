@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gma.System.MouseKeyHook;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,16 +18,6 @@ namespace DofuSwitcher
         public Form1()
         {
             InitializeComponent();
-        }
-
-        public enum WMessages : int
-        {
-            WM_LBUTTONDOWN = 0x201, //Left mousebutton down
-            WM_LBUTTONUP = 0x202, //Left mousebutton down
-            WM_LBUTTONDBLCLK = 0x203, //Left mousebutton doubleclick
-            WM_RBUTTONDOWN = 0x204, //Right mousebutton down
-            WM_RBUTTONUP = 0x205, //Right mousebutton down
-            WM_RBUTTONDBLCLK = 0x206, //Right mousebutton doubleclick
         }
 
         [DllImport("user32.dll")]
@@ -56,6 +47,167 @@ namespace DofuSwitcher
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall, SetLastError = true)]
+        private static extern int SetWindowsHookEx(
+            int idHook,
+            HookProc lpfn,
+            IntPtr hMod,
+            int dwThreadId);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto,
+                    CallingConvention = CallingConvention.StdCall, SetLastError = true)]
+        private static extern int UnhookWindowsHookEx(int idHook);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto,
+            CallingConvention = CallingConvention.StdCall, SetLastError = true)]
+        private static extern int CallNextHookEx(
+            int idHook,
+            int nCode,
+            int wParam,
+            IntPtr lParam);
+
+        [DllImport("user32")]
+        private static extern int ToAscii(
+            int uVirtKey,
+            int uScanCode,
+            byte[] lpbKeyState,
+            byte[] lpwTransKey,
+            int fuState);
+
+        [DllImport("user32")]
+        private static extern int GetKeyboardState(byte[] pbKeyState);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern short GetKeyState(int vKey);
+
+        private delegate int HookProc(int nCode, int wParam, IntPtr lParam);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private class POINT
+        {
+            /// <summary>
+            /// Coordonnée X. 
+            /// </summary>
+            public int x;
+            /// <summary>
+            /// Coordonnée Y.
+            /// </summary>
+            public int y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private class MouseHookStruct
+        {
+            /// <summary>
+            /// Structure POINT pour les coordonnée 
+            /// </summary>
+            public POINT pt;
+            /// <summary>
+            /// Handle de la window
+            /// </summary>
+            public int hwnd;
+            /// <summary>
+            /// Specifies the hit-test value. For a list of hit-test values, see the description of the WM_NCHITTEST message. 
+            /// </summary>
+            public int wHitTestCode;
+            /// <summary>
+            /// Specifies extra information associated with the message. 
+            /// </summary>
+            public int dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private class MouseLLHookStruct
+        {
+            /// <summary>
+            /// Structure POINT.
+            /// </summary>
+            public POINT pt;
+            public int mouseData;
+            public int flags;
+            public int time;
+            public int dwExtraInfo;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private class KeyboardHookStruct
+        {
+            /// <summary>
+            /// Key code virtuel, la valeur doit etre entre 1 et 254. 
+            /// </summary>
+            public int vkCode;
+            public int scanCode;
+            public int flags;
+            public int time;
+            public int dwExtraInfo;
+        }
+
+        //Valeurs issues de Winuser.h du SDK de Microsoft.
+        /// <summary>
+        /// Windows NT/2000/XP: Installe un hook pour la souris
+        /// </summary>
+        private const int WH_MOUSE_LL = 14;
+        /// <summary>
+        /// Windows NT/2000/XP: Installe un hook pour le clavier
+        /// </summary>
+        private const int WH_KEYBOARD_LL = 13;
+
+        private const int WH_MOUSE = 7;
+
+        private const int WH_KEYBOARD = 2;
+
+        /// <summary>
+        /// Le message WM_MOUSEMOVE est envoyé quand la souris bouge
+        /// </summary>
+        private const int WM_MOUSEMOVE = 0x200;
+        /// <summary>
+        /// Le message WM_LBUTTONDOWN est envoyé lorsque le bouton gauche est pressé
+        /// </summary>
+        private const int WM_LBUTTONDOWN = 0x201;
+        /// <summary>
+        /// Le message WM_RBUTTONDOWN est envoyé lorsque le bouton droit est pressé
+        /// </summary>
+        private const int WM_RBUTTONDOWN = 0x204;
+        /// <summary>
+        /// Le message WM_MBUTTONDOWN est envoyé lorsque le bouton central est pressé
+        /// </summary>
+        private const int WM_MBUTTONDOWN = 0x207;
+        /// <summary>
+        /// Le message WM_LBUTTONUP est envoyé lorsque le bouton gauche est relevé
+        /// </summary>
+        private const int WM_LBUTTONUP = 0x202;
+        /// <summary>
+        /// Le message WM_RBUTTONUP est envoyé lorsque le bouton droit est relevé 
+        /// </summary>
+        private const int WM_RBUTTONUP = 0x205;
+
+        private const int WM_MBUTTONUP = 0x208;
+
+        private const int WM_LBUTTONDBLCLK = 0x203;
+
+        private const int WM_RBUTTONDBLCLK = 0x206;
+
+        private const int WM_MBUTTONDBLCLK = 0x209;
+
+        private const int WM_MOUSEWHEEL = 0x020A;
+
+
+        private const int WM_KEYDOWN = 0x100;
+
+        private const int WM_KEYUP = 0x101;
+
+        private const int WM_SYSKEYDOWN = 0x104;
+
+        private const int WM_SYSKEYUP = 0x105;
+
+        private const byte VK_SHIFT = 0x10;
+        private const byte VK_CAPITAL = 0x14;
+        private const byte VK_NUMLOCK = 0x90;
+
+
+        List<string> listDofusWindows = new List<string>();
+
+
         public IntPtr findMe()
         {
             return this.Handle; //FindWindow("", "Form1");
@@ -66,37 +218,16 @@ namespace DofuSwitcher
             return ((HiWord << 16) | (LoWord & 0xffff));
         }
 
-
-        /*
-        private void Start()
-        {
-            foreach(string window in listDofusWindows)
-            {
-                IntPtr _pointer = FindWindow(null, window);
-                SetForegroundWindow(_pointer);
-                int LParam = MakeLParam(900, 1100);
-                PostMessage(_pointer, (int)WMessages.WM_RBUTTONDOWN, 0, LParam);
-                PostMessage(_pointer, (int)WMessages.WM_RBUTTONUP, 0, LParam);
-            }
-        }
-        */
-
-        private bool _start;
-
         private void Start()
         {
             int coordinates = Cursor.Position.X | (Cursor.Position.Y << 16);
-            //_start = true;
-            //while (_start)
-            //{
-                foreach (string window in listDofusWindows)
-                {
-                    IntPtr _pointer = FindWindow(null, window);
-                    SetForegroundWindow(_pointer);
-                    SendMessage(_pointer, (int)WMessages.WM_LBUTTONDOWN, 0, coordinates);
-                    SendMessage(_pointer, (int)WMessages.WM_LBUTTONUP, 0, coordinates);
-                }
-            //}
+            foreach (string window in listDofusWindows)
+            {
+                IntPtr _pointer = FindWindow(null, window);
+                SetForegroundWindow(_pointer);
+                SendMessage(_pointer, (int)WM_LBUTTONDOWN, 0, coordinates);
+                SendMessage(_pointer, (int)WM_LBUTTONUP, 0, coordinates);
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -112,7 +243,6 @@ namespace DofuSwitcher
             //LOAD LISTS
             loadProcessList();
             loadDofusWindows();
-
             //Console
             loadConsole();
         }
@@ -129,9 +259,6 @@ namespace DofuSwitcher
             }
         }
 
-
-        List<string> listDofusWindows = new List<string>();
-
         private void loadDofusWindows()
         {
             lstChkDofus.Items.Clear();
@@ -145,16 +272,6 @@ namespace DofuSwitcher
             }
         }
 
-        //Console.WriteLine
-        private void loadConsole()
-        {
-            lstConsole.Items.Clear();
-            foreach (String window in listDofusWindows)
-            {
-                lstConsole.Items.Add(window);
-            }
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             loadProcessList();
@@ -164,34 +281,19 @@ namespace DofuSwitcher
             loadConsole();
         }
 
-        private void lstChkDofus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //FUNCTION TO CLICK
-
-        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
-        private static extern bool SetCursorPos(int X, int Y);
-
-        [DllImport("user32.dll")]
-        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x04;
-
-        public void Clicker(int x, int y)
-        {
-            SetCursorPos(x, y);
-            this.Refresh();
-            Application.DoEvents();
-            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
-        }
-
         private void btnStop_Click(object sender, EventArgs e)
         {
-            _start = false;
+
+        }
+
+        //Console.WriteLine
+        private void loadConsole()
+        {
+            lstConsole.Items.Clear();
+            foreach (String window in listDofusWindows)
+            {
+                lstConsole.Items.Add(window);
+            }
         }
     }
 }
